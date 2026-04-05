@@ -32,13 +32,12 @@ class MeshReader:
         self.vertices_size = self.read_4_bytes(offset=152+name_len)
         # each vertex appears to be 36 bytes long
 
-        print(self.read_4_bytes(offset=self.vertices_start+self.vertices_size-4))
-        
 
         self.triangles_start = 160+name_len+self.vertices_size
         self.triangles_size = self.read_4_bytes(offset=self.triangles_start-4)
 
-        #print(self.read_4_bytes(offset=self.triangles_start+self.triangles_size-4))
+        # the header seems mostly empty, and consistent from file to file
+        
 
     def read_vertices(self):
         self.vertices = []
@@ -60,7 +59,7 @@ class MeshReader:
                     self.read_float(offset = i+28),
                     self.read_float(offset = i+32),
                     ]
-                }) # what is the rest of the vertex data?
+                }) # bytes 16-23 seem to always be zero, not sure what they're for
         
     def read_triangles(self):
         self.triangles = []
@@ -112,23 +111,22 @@ class MeshReader:
 #name = "differential_gearbox_a"
 #name = "lizard_creature_c_lod"
 #name = "food_canned_bread"
-name = "test_playground"
+#name = "test_playground"
+#name = "brake_a"
+#name = "brake_a_b"
+#name = "engine_block_a_0_0_0"
+#name = "engine_block_a_0_0_1"
+name = "engine_block_a_0_0_2"
 
-#newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/components/"+name+".mesh")
+newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/components/"+name+".mesh")
 #newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/animals/lizard_creature_c/"+name+".mesh")
 #newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/inventory/"+name+".mesh")
-newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/"+name+".mesh")
-print(newMesh.header)
+#newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/"+name+".mesh")
 
-print(newMesh.vertices_size)
+print(newMesh.vertices_size//newMesh.vertex_size,"vertices")
 
-print(newMesh.triangles_start)
-print(newMesh.triangles_size)
+print(newMesh.triangles_size//newMesh.triangle_size,"triangles")
 
-print(newMesh.vertices[50])
-print(newMesh.triangles[5])
-
-print(len(newMesh.vertices),len(newMesh.triangles))
 
 newMesh.close()
 
