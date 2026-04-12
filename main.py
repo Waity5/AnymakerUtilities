@@ -1,6 +1,6 @@
 from MeshToData import MeshReader
 from DataToPly import PlyWriter
-
+from MeshCombine import MeshCombiner
 
 
 #name = "liquid_fill"
@@ -14,11 +14,15 @@ from DataToPly import PlyWriter
 #name = "brake_a_b"
 #name = "engine_block_a_0_0_0"
 #name = "engine_block_a_0_0_1"
-name = "engine_block_a_0_0_2"
+#name = "engine_block_a_0_0_2"
+#name = "fuel_tank_a_0_0_0"
+name = "radiator_a_0_0_0"
 
 newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/components/"+name+".mesh")
 #newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/animals/lizard_creature_c/"+name+".mesh")
 #newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/inventory/"+name+".mesh")
 #newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/"+name+".mesh")
+
+#newMesh = MeshCombiner(newMesh,newMesh)
 
 PlyWriter(newMesh, "./output/"+name+".ply")
