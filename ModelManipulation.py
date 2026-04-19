@@ -1,4 +1,5 @@
 from copy import deepcopy as dcopy
+from math import dist
 
 # surely this is the propper way to use classes
 
@@ -13,6 +14,19 @@ def sub3(a,b):
 
 def mul3(a,b):
     return (a[0]*b, a[1]*b, a[2]*b)
+
+def cross(a, b):
+    c = [a[1]*b[2] - a[2]*b[1],
+         a[2]*b[0] - a[0]*b[2],
+         a[0]*b[1] - a[1]*b[0]]
+
+    return c
+
+def cross3(a, b, c):
+    return cross(sub3(b,a), sub3(c,a))
+
+def norm3(a):
+    return mul3(a,1/dist(a,(0,0,0)))
 
 
 
