@@ -80,11 +80,11 @@ class TxtrWriter:
 
 
 
-img = image.open("./input/shrek.png").convert("RGBA")
+if __name__ == "__main__":
+    img = image.open("./input/shrek.png").convert("RGBA")
 
 
+    root_path = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/textures/"
 
+    TxtrWriter(img, root_path+"logo.txtr")
 
-root_path = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/textures/"
-
-TxtrWriter(img, root_path+"logo.txtr")
