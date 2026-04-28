@@ -4,12 +4,13 @@ class MeshReader:
     def __init__(self, file_path):
         self.vertex_size = 36 # each vertex is 36 bytes
         self.triangle_size = 12 # each triagles is make of 3 32 bit ints
+        # todo: add support for meshes with 16 and 28-size vertices
 
         self.file_path = file_path
         self.mesh_file = open(file_path, 'rb')
         self.read_header()
         self.read_triangles()
-        self.estimated_vertex_size = self.vertices_size/(self.max_index+1)
+        self.estimated_vertex_size = self.vertices_size/(self.max_index+1) # this gives either 36, 28, or 16
         self.read_vertices()
 
         self.close()
@@ -18,8 +19,10 @@ class MeshReader:
         self.header = {
             'file_type': self.read_string(offset=0, num_bytes=4),
             'header4': self.read_4_bytes(offset=4),
-            'mesh_count': self.read_4_bytes(offset=8),
+            'mesh_count': self.read_4_bytes(offset=8), 
         }
+        # todo: read from multiple meshes in the same file
+        # this is easy programming-wise but I'm not sure how to structure it with the whole return-class-as-model thing
         
         
         self.header['mesh_name_length'] = self.read_4_bytes(offset=12)
@@ -55,7 +58,7 @@ class MeshReader:
         self.vertices = []
         for i in range(self.vertices_start,self.vertices_start+self.vertices_size,self.vertex_size):
             self.vertices.append({
-                "pos":[
+                "pos":[ # y is up, z is forwards
                     self.read_float(offset = i+0),
                     self.read_float(offset = i+4),
                     self.read_float(offset = i+8),
@@ -71,11 +74,7 @@ class MeshReader:
                     self.read_float(offset = i+28),
                     self.read_float(offset = i+32),
                     ]
-                }) # bytes 16-23 seem to always be zero, not sure what they're for
-            #if self.read_4_bytes(offset = i+16) != 0:
-            #    print(self.file_path)
-            #if self.read_4_bytes(offset = i+16) != 0:
-            #    self.vertices[-1]["colour"] = {"r":0,"g":255,"b":0,"a":255}
+                }) # bytes 16-23 seem to mostly be zero, not sure what they're for (maybe glow effects?)
         
     def read_triangles(self):
         self.max_index = 0
@@ -127,12 +126,14 @@ class MeshReader:
 
 
 if __name__ == "__main__":
-    from glob import glob as glob
+    from glob import glob as glob # glob
 
     root = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/components/"
     
     #search = [root+"brake_a_b.mesh"]
     #search = [root+"square_headlight_a.mesh"]
+    #search = [root+"radiator_a_0_0_0.mesh"]
+    #search = [root+"engine_block_a_0_0_0.mesh"]
     search = glob(root+"*.mesh")
     search_num = len(search)
 
@@ -149,7 +150,13 @@ if __name__ == "__main__":
             print(model.estimated_vertex_size)
             #print(search[i])
 
+        if model.header["mesh_name_length"] == 16:
+            None
+            #print(search[i])
+
         #if model.header["mesh_count"]==2:
         #    print(search[i])
         
-    
+        for i in model.vertices:
+            None
+            #print(i["colour"])

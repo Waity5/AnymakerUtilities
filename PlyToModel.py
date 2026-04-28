@@ -1,4 +1,4 @@
-import plyfile, numpy, ModelToMesh
+import plyfile, numpy
 from ModelManipulation import cross3, norm3
 
 
@@ -35,6 +35,12 @@ class PlyReader:
                     "g":int(i[header.index("green")]),
                     "b":int(i[header.index("blue")]),
                     "a":int(i[header.index("alpha")]),
+                    } if header.count("red")==1 else
+                {
+                    "r":255,
+                    "g":255,
+                    "b":255,
+                    "a":255
                     },
                 "normal":[
                     [],
@@ -73,6 +79,8 @@ class PlyReader:
 
 
 if __name__ == "__main__":
+    import ModelToMesh
+    
     model = PlyReader("C:/Users/Waity5/AppData/Local/GitHubDesktop/stuff/AnymakerUtilities/output/shrek_small.ply")
 
     output = ModelToMesh.MeshWriter(model,"C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/components/electric_relay.mesh","C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/components/electric_relay original.mesh")

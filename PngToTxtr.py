@@ -3,7 +3,7 @@ import json, numpy as np
 from math import log2
 
 
-import MeshToModel, struct
+import struct
 
 def colourCorrect(channel):
     return round((((channel)/255)**2.2)*255)
