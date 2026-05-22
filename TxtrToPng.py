@@ -74,10 +74,7 @@ class TxtrReader:
 
 if __name__ == "__main__":
     from glob import glob as glob # glob
-    #root = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/animals/"
-    #root = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/natural_environment/"
-    root = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/textures/"
-    root = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/textures/weather/"
+    root = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/"
 
     #name = "spruce_large"
     
@@ -85,7 +82,7 @@ if __name__ == "__main__":
 
     #img.save("./output/"+name+".png")
 
-    names = [i.replace("\\","/") for i in glob(root+"*.txtr")]
+    names = [i.replace("\\","/") for i in glob(root+"/**/*.txtr",recursive=True)]
     
 
     for i in names:

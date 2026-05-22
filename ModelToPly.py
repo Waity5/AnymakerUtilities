@@ -15,7 +15,7 @@ def PlyWriter(mesh, path):
 
 
 if __name__ == "__main__":
-    from MeshToModel import MeshReader
+    from MeshToModel import MultipleMeshReader
 
 
     #name = "liquid_fill"
@@ -35,20 +35,31 @@ if __name__ == "__main__":
     #name = "lightning_bolt"
     #name = "muzzle_flash"
     #name = "elev45_a_b"
-    name = "square_headlight_a"
+    #name = "square_headlight_a"
+    #name = "spotted_owl"
+    name = "spotted_owl_closed_wing"
 
-    #newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/components/"+name+".mesh")
-    #newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/animals/lizard_creature_c/"+name+".mesh")
-    #newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/inventory/"+name+".mesh")
-    #newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/"+name+".mesh")
-    #newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/natural_environment/"+name+".mesh")
-    #newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/bunker_design/"+name+".mesh")
-    newMesh = MeshReader("C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/animals/animal_spotted_owl/spotted_owl.mesh")
-    print("Vertex size:",newMesh.estimated_vertex_size)
-    print("Text 1 name:",newMesh.header["texture1_name"])
-    print("Text 2 name:",newMesh.header["texture2_name"])
-    print("Mesh count:",newMesh.header["mesh_count"])
-    #newMesh = MeshCombiner(newMesh,newMesh)
+    #path = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/components/"+name+".mesh"
+    #path = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/animals/lizard_creature_c/"+name+".mesh"
+    #path = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/inventory/"+name+".mesh"
+    #path = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/"+name+".mesh"
+    #path = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/natural_environment/"+name+".mesh"
+    #path = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/bunker_design/"+name+".mesh"
+    path = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/animals/animal_spotted_owl/"+name+".mesh"
 
-    PlyWriter(newMesh, "./output/"+name+".ply")
+    newMeshes = MultipleMeshReader(path)
+
+    for i in range(len(newMeshes)):
+        newMesh = newMeshes[i]
+        
+        print("Vertex size:",newMesh.vertex_size)
+        print("Text 1 name:",newMesh.header["texture1_name"])
+        print("Text 2 name:",newMesh.header["texture2_name"])
+        print("Mesh count:",newMesh.header["mesh_count"])
+        print("Vertex count:",len(newMesh.vertices))
+        print("Triangle count:",len(newMesh.triangles))
+        print()
+        #newMesh = MeshCombiner(newMesh,newMesh)
+
+        PlyWriter(newMesh, "./output/"+name+str(i)+".ply")
 
