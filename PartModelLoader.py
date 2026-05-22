@@ -67,12 +67,12 @@ def PartModelLoader (anymaker_root_path, part_id, extension=(0,0,0)):
 
 
 if __name__ == "__main__":
-    name = "liquid_pump"
+    #name = "liquid_pump"
     #name = "drive_shaft"
     #name = "radiator"
     #name = "engine"
     #name = "liquid_tank"
-    #name = "tool_wall"
+    name = "tool_wall"
     #name = "drive_shaft_c"
     
     

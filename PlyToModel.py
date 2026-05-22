@@ -83,5 +83,5 @@ if __name__ == "__main__":
     
     model = PlyReader("C:/Users/Waity5/AppData/Local/GitHubDesktop/stuff/AnymakerUtilities/output/shrek_small.ply")
 
-    output = ModelToMesh.MeshWriter(model,"C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/components/electric_relay.mesh","C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/components/electric_relay original.mesh")
+    output = ModelToMesh.MeshWriter(model,"./output/shrek.mesh","C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/components/electric_relay.mesh")
     

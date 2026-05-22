@@ -69,7 +69,35 @@ class ModelRotate:
                 i["pos"][0] * matrix[2] + i["pos"][1] * matrix[5] + i["pos"][2] * matrix[8],
                 )
 
+class ModelExtend: # unfinished, meant to be used to make beams and wires
+    def __init__(self, mesh, pos1, pos2):
+        diff = sub3(pos2,pos1)
+
+        self.triangles = dcopy(mesh.triangles)
+
+        verts = set(range(len(mesh.vertices)))
+        mesh1_verts = dcopy(verts)
+        for i in range(len(mesh.triangles)-1,-1,-1):
+            cur = mesh.triangles[i]
+            normal = cross3(mesh.vertices[cur["index0"]]["pos"],mesh.vertices[cur["index1"]]["pos"],mesh.vertices[cur["index2"]]["pos"])
+
+            if dot3(diff,normal)>0:
+                for j in cur:
+                    mesh1_verts.discard(cur[j])
+                mesh.triangles.pop(i)
+        
+
 class ModelCreate:
     def __init__(self):
         self.vertices = []
         self.triangles = []
+
+
+if __name__ == "__main__":
+    import PlyToModel, ModelToPly
+
+    model = PlyToModel.PlyReader("./data/beam.ply")
+
+    model = ModelExtend(model,(0,0,0),(5,5,0))
+
+    ModelToPly.PlyWriter(model,"./output/beam.ply")

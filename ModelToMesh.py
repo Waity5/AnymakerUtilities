@@ -85,4 +85,14 @@ class MeshWriter:
 
     
 
+
+if __name__ == "__main__":
+    base = "C:/Program Files (x86)/Steam/steamapps/common/Anymaker Demo/rom/meshes/components/box1x1.mesh"
+    
+    model = MeshToModel.MeshReader(base)
+
+    model.vertices = []
+    model.triangles = []
+
+    MeshWriter(model, "./output/empty.mesh", base)
         
