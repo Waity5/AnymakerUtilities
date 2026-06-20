@@ -124,7 +124,7 @@ class MeshReader:
 
                 elif j == (2,3): # probably U V co-ords
                     vertex["U"] = self.read_float(offset = offset+0),
-                    vertex["V"] = self.read_float(offset = offset+0),
+                    vertex["V"] = self.read_float(offset = offset+4),
 
                 elif j == (3,4): # normal vector
                     vertex["normal"] = [
